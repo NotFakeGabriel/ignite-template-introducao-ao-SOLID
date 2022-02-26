@@ -1,0 +1,216 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Ignite desafio SOLID",
+    "description": "Esse é um desafio do curso Ignite da Rocketseat para testar os conhecimentos de SOLID",
+    "version": "1.0.0",
+    "contact": {
+      "email": "gamorimfaleiros@yahoo.com.br"
+    }    
+  },
+  "paths": {
+    "/users": {
+      "post":{
+        "tags": ["Users"],
+        "summary": "Create user",
+        "description": "Create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "date"
+                  },
+                  "updated_at": {
+                    "type": "date"
+                  }
+                },
+                "example": {
+                  "name": "User name example",
+                  "email": "user@example.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "E-mail already in use"
+          }
+        }
+      },
+      "get": {
+      "tags": ["Users"],
+      "summary": "List all users",
+      "description": "If the user that is making the request is an admin, list all users",
+      "parameters": [
+        {
+        "name": "user_id",
+        "in": "header",
+        "description": "The user Id",
+        "required": true,
+        "schema":{
+          "type": "string"
+        }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Users list",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "date"
+                  },
+                  "updated_at": {
+                    "type": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "User does not have admin permissions"
+        }
+      }
+     
+    }
+    
+  },
+  "/users/{user_id}": {
+    "get": {
+      "tags": ["Users"],
+      "summary": "Show user profile",
+      "parameters": [
+        {
+          "name": "user_id",
+          "in": "path",
+          "description": "User ID",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses":{
+        "200": {
+          "description": "User profile",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "date"
+                  },
+                  "updated_at": {
+                    "type": "date"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/users/{user_id}/admin": {
+    "patch": {
+      "tags": ["Users"],
+      "summary": "Turns user an admin",
+      "parameters": [
+        {
+          "name": "user_id",
+          "in":"path",
+          "description":"Users ID",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses":{
+        "200": {
+          "description": "User profile",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "admin": {
+                    "type": "boolean"
+                  },
+                  "created_at": {
+                    "type": "date"
+                  },
+                  "updated_at": {
+                    "type": "date"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "404": {
+          "description": "User does not exist"
+        }
+      }
+    }
+  }
+}
+
+}
